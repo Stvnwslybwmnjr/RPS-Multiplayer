@@ -1,0 +1,9 @@
+#chatDisplay {
+    border: 2px;
+    border-color: #000;
+    border-style: solid;
+    height: 225px;
+    margin-top: 5px;
+    text-align: left;
+    overflow: scroll;
+}
