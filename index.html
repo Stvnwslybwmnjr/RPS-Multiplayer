@@ -32,13 +32,27 @@
                         <input id="player-name" type="text" name="name" placeholder="Your Name">
                         <input class="btn-dark" id="name-box" type="button" value="Submit">
                     </form>
+                    <!--Game Section-->
                     <div class="row">
-                        <div class="col-4">Player One</div>
-                        <div class="col-4">Score</div>
-                        <div class="col-4">Player Two</div>
+                        <div class="col-4"><h2>Player One</h2>
+                            <button id="player1Rock">Rock</button>
+                            <button id="player1Paper">Paper</button>
+                            <button id="player1Scissors">Scissors</button>
+                        </div>
+                        <div class="col-4"><h2>Score</h2>
+                        <div id="player1Pick"></div>
+                        <div id="player2Pick"></div>
+                        <div id="whoWon"></div>
+                        </div>
+                        <div class="col-4"><h2>Player Two</h2> 
+                                <button id="player2Rock">Rock</button>
+                                <button id="player2Paper">Paper</button>
+                                <button id="player2Scissors">Scissors</button>
+                        </div>
                     </div>
+                    <!--ChatSection-->
                     <div id="chatDisplay"></div>
-                    <form action="">
+                    <form>
                             <input id="player-chat" type="text" name="chat" value="">
                             <input class="btn-dark" id="chat-send" type="button" value="Send">
                     </form>
