@@ -36,16 +36,25 @@ let player2 = {
 };
 database.ref().child("/players/player2").set(player2);
 
+var clickCounter = 0;
 // =====================NAME BUTTON================================
-
+database.ref("count").on("value", function(snapshot){
+  clickCounter = snapshot.val().clickCount;
+})
 $("#nameButton").on("click", function(event) {
   event.preventDefault();
-  database.ref("/players").on("value", function(snapshot) {
-    console.log(snapshot.val());
-    console.log(snapshot.val().player1);
-    // debugger;
-  if(snapshot.val().player1.name == ""){//this has to come from firebase, not local
-
+  clickCounter++;
+  console.log(clickCounter)
+  // database.ref("/players").on("value", function(snapshot) {
+  //   console.log(snapshot.val());
+  //   console.log(snapshot.val().player1);
+  //   // debugger;
+  // if(snapshot.val().player1.name == ""){//this has to come from firebase, not local
+  database.ref().child("count").set({
+    clickCount: clickCounter
+  });
+  database.ref("count").on("value", function(snapshot){
+    if (snapshot.val().clickCount == 1){
     console.log("if condition fired")
     yourPlayerName = $("#player-name").val().trim();
     definedplayer1 = {
@@ -58,9 +67,11 @@ $("#nameButton").on("click", function(event) {
     
     database.ref().child("/players/player1").set(definedplayer1);
     $("#enter-name").empty();
+    
+    database.ref("count").onDisconnect().remove();
     database.ref("/players/player1").onDisconnect().remove();
     // Though it makes no sense to me removing the ! from player1.name !== "" actually prevents the else if function from firing
-  } else if( (snapshot.val().player1.name !== "") && (snapshot.val().player2.name == "")){
+  } else if(snapshot.val().clickCount == 2){
     console.log("if Else function fired")
     yourPlayerName = $("#player-name").val().trim();
     $("#p2Name").text(yourPlayerName)
