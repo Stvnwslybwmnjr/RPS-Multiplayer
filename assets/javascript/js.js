@@ -16,6 +16,7 @@ var firebaseConfig = {
 
 var yourPlayerName = "";
 
+var definedplayer1;
 
 let player1 = {
   name: "",
@@ -42,22 +43,24 @@ $("#nameButton").on("click", function(event) {
   database.ref("/players").on("value", function(snapshot) {
     console.log(snapshot.val());
     console.log(snapshot.val().player1);
+    // debugger;
   if(snapshot.val().player1.name == ""){//this has to come from firebase, not local
+
     console.log("if condition fired")
     yourPlayerName = $("#player-name").val().trim();
-    player1 = {
+    definedplayer1 = {
       name: yourPlayerName,
       wins: 0,
       losses: 0,
       ties: 0,
       pick: ""
     };
-    database.ref().child("/players/player1").set(player1);
     
+    database.ref().child("/players/player1").set(definedplayer1);
     $("#enter-name").empty();
     database.ref("/players/player1").onDisconnect().remove();
     // Though it makes no sense to me removing the ! from player1.name !== "" actually prevents the else if function from firing
-  } else if( (snapshot.val().player1.name == "") && (snapshot.val().player2.name == "")){
+  } else if( (snapshot.val().player1.name !== "") && (snapshot.val().player2.name == "")){
     console.log("if Else function fired")
     yourPlayerName = $("#player-name").val().trim();
     $("#p2Name").text(yourPlayerName)
@@ -70,7 +73,7 @@ $("#nameButton").on("click", function(event) {
     };
     database.ref().child("/players/player2").set(player2);
     $("#enter-name").empty();
-     database.ref("/players/player2").onDisconnect().remove();
+    database.ref("/players/player2").onDisconnect().remove();
   }//else, 2 people playing already, have to wait. or just chat.
 })});
 
